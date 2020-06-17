@@ -35,6 +35,7 @@ public class MainMenu extends javax.swing.JFrame {
         startButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Pacman");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deypacman/logo1.png"))); // NOI18N
         jLabel1.setPreferredSize(new java.awt.Dimension(500, 300));

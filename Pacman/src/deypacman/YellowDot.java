@@ -36,11 +36,11 @@ public class YellowDot {
         eaten = isEatenFlag;
         //erase the dot if it has been eaten
         if (eaten){
-            dotPic.setIcon(new ImageIcon("src\\deypacman\\blackSquare.png"));
+            dotPic.setIcon(new ImageIcon(LevelMap.class.getResource("blackSquare.png")));
         }
         //if it hasn't been eaten, display the dot
         else{
-            dotPic.setIcon(new ImageIcon("src\\deypacman\\yellowDot.png"));
+            dotPic.setIcon(new ImageIcon(LevelMap.class.getResource("yellowDot.png")));
         }
     }
     

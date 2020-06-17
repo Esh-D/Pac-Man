@@ -32,14 +32,14 @@ public class LevelMap extends javax.swing.JFrame {
     ArrayList<Integer> scores = new ArrayList();
     int score = 0;
     
-    Thread pac;
+    Thread character;
     Object obj = new Object();
     
     //declaring PacMan Object
     PacMan pacMan;
     
-    Thread ghost;
-    Object obj1 = new Object();
+    //Thread ghost;
+    //Object obj1 = new Object();
     
     //declaring Ghost objects 
     Ghost ghost1;
@@ -85,17 +85,51 @@ public class LevelMap extends javax.swing.JFrame {
         sortNamesAndScores(0, scores.size() - 1);
         
         //This method contains a thread, it also runs the thread
-        pacThread();
-        ghostThread();
-        threadsStart();
+        characterThread();
+        
+    }
+    //resetting the game when the user wants to Play Again (method is called from the "End" Frame)
+    public void gameReset(){
+        //reseting the score to 0
+        score = 0;
+        lblScore.setText("Score: " + score);
+        
+        //reseting pacMan's position, direction, and icon
+        pacMan.setXPos(240);
+        pacMan.setYPos(200);
+        pacMan.setDirection("");
+        pacMan.setCharacterIcon(pacMan.getIconFileRight());
+        
+        //reseting the states of the dots
+        for (int i = 0; i < dots.length; i++){
+            dots[i].setEaten(false);
+        }
+        
+        //set the glitch cover to transparent 
+        GlitchCover.setBackground(new Color(0,0,0,0));
+        
+        ghost1.setIsFull(false);
+        ghost2.setIsFull(false);
+        ghost3.setIsFull(false);
+        ghost4.setIsFull(false);
+        ghost5.setIsFull(false);
+        ghost6.setIsFull(false);
+        
+        try {
+            //unpause the pac thread
+            synchronized(obj){
+                obj.notify();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
         
     }
     
-    //All the methods in this chunk related to the "pac" Thread
-    //"pac" Thread starts running here
-    public void pacThread(){
+    //"character" Thread starts running here (character refers to pacman and the ghosts)
+    public void characterThread(){
         
-        pac = new Thread(new Runnable(){
+        character = new Thread(new Runnable(){
             
             public void run(){
                 //"synchronized(obj)" allows the program to be paused & unpaused in different parts of the program as long as the command is nested within a "synchronized(obj)" statement
@@ -109,17 +143,27 @@ public class LevelMap extends javax.swing.JFrame {
                         //checking if pac man has eaten any dots / eaten all the dots
                         //alters the game accordingly
                         pacEating();
+                        
+                        //ghosts' constant moving feature
+                        ghostMotion();
+                        //checking if ghost has eaten pac-man
+                        //alters the game accordingly
+                        eatPacMan();
                     }
                 }
             }
         });
+        
+        character.start();
     }
+    
+    //All the methods in this chunk related to the pacman character
     //pacMan's continuous motion feature
     public void pacMotion(){
         //pacMan pauses after every movement for the amount of milliseconds specified
         //below sets how fast pacMan travels
         try{
-            Thread.sleep(100);
+            Thread.sleep(50);
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error has occured: " + e);
         }
@@ -246,80 +290,20 @@ public class LevelMap extends javax.swing.JFrame {
                 
                 //if all the yellow dots are eaten, player wins and game ends
                 if (score == 12300){
-                    win();
+                    outcome = "You Win!";
+                    end();
                 }
             }
-        }
-    }
-    //what happens when the player wins (when pacMan eats all the dots)
-    public void win(){
-        //String to be displayed on the end menu
-        outcome = "You Win!";
-        
-        //asking user for their name/nickname
-        name = JOptionPane.showInputDialog("Enter a nickname.");
-        //make sure player doesn't leave the field empty
-        while (name == ""){
-            name = JOptionPane.showInputDialog("Enter a nickname.");
-        }
-        
-        //writing name & score to datafile
-        writeNameAndScore();
-        
-        //search through scores ArrayList and insert the new score in correct index relative to the other numbers
-        //also insert name in the same index in the names ArrayList
-        insertNamesAndScores(0, scores.size() - 1);
-        
-        //display gameover/win menu
-        loadEndMenu();
-        
-        try {
-            //pause the pac thread
-            synchronized(obj){
-                obj.wait();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e);
-        }
-        
-        try {
-            //pause the ghost thread
-            synchronized(obj1){
-                obj1.wait();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }
     
-    //All the methods in this chunk related to the "ghost" Thread
-    //"ghost" Thread starts running here
-    public void ghostThread() {
-        //This thread accounts for ghosts' continuous motion
-        ghost = new Thread(new Runnable(){
-            boolean running = true;
-            
-            public void run(){
-                synchronized(obj1){
-                    while(true){
-                        //ghosts' constant moving feature
-                        ghostMotion();
-                       
-                        //checking if ghost has eaten pac-man
-                        //alters the game accordingly
-                        eatPacMan();
-                    }
-                }
-            }
-        });
-        
-    }
+    //All the methods in this chunk related to the ghost characters
     //ghosts's continuous motion feature
     public void ghostMotion() {
         //ghost pauses after every movement for the amount of milliseconds specified
         //below sets how fast pacMan travels
         try{
-            Thread.sleep(100);
+            Thread.sleep(50);
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error has occured: " + e);
         }
@@ -369,30 +353,30 @@ public class LevelMap extends javax.swing.JFrame {
         if (ghost1.ghostIsFull(pacMan) || ghost2.ghostIsFull(pacMan) || ghost3.ghostIsFull(pacMan)
                 || ghost4.ghostIsFull(pacMan) || ghost5.ghostIsFull(pacMan) || ghost6.ghostIsFull(pacMan)) {
             deathMusic.playMusic(filepath3);
-            lose();
+            outcome = "Game Over!";
+            end();
         }
 
     }
-    //this method is called if the user gets eaten by a ghost
-    public void lose() {
-        outcome = "Game Over!";
-
+    //what happens when the player wins/loses
+    public void end(){
         //asking user for their name/nickname
         name = JOptionPane.showInputDialog("Enter a nickname.");
-        while (name == "") {
+        //make sure player doesn't leave the field empty
+        while (name == ""){
             name = JOptionPane.showInputDialog("Enter a nickname.");
         }
-
+        
         //writing name & score to datafile
         writeNameAndScore();
-
+        
         //search through scores ArrayList and insert the new score in correct index relative to the other numbers
         //also insert name in the same index in the names ArrayList
-        insertNamesAndScores(0, scores.size() - 1);
-
-        //load gameover/win menu
+        insertNamesAndScores();
+        
+        //display gameover/win menu
         loadEndMenu();
-
+        
         try {
             //pause the pac thread
             synchronized(obj){
@@ -401,26 +385,7 @@ public class LevelMap extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
-        
-        try {
-            //pause the ghost thread
-            synchronized(obj1){
-                obj1.wait();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e);
-        }
-
     }
-    
-    
-    //triggers the run method for both threads (pac & ghost)
-    public void threadsStart(){
-        //start running the threads (executes the code in the run() methods of the threads)
-        pac.start();
-        ghost.start();
-    }
-    
     
     //All the methods in this chunk are related to the names & scores ArrayLists 
     //read names & scores from data file and insert them into their respective ArrayLists
@@ -494,31 +459,21 @@ public class LevelMap extends javax.swing.JFrame {
         sortNamesAndScores(l, right);
     }
     //inserts the players new score & name into the names & scores ArrayLists relative to the other elements 
-    public void insertNamesAndScores(int left, int right){
-        //searching based on Binary Search
-        
-        //if left selector has gone past the right selector OR they overlap, the correct position has been found
-        //insert the new score and name into that position in their respective ArrayLists
-        if (left >= right){
-            scores.add(left, score);
-            names.add(left, name);
-            return;
+    public void insertNamesAndScores(){
+        //scores ArrayList is in decending order
+        //check each item in the ArrayList and check if the score belongs in that index (is the score larger than the number currently at that index?)
+        //Whatever you change in the scores ArrayList, must be changed in the names ArrayList (each index represents 1 person (and they have a name and a score)
+        //when the score and names are inserted, end the method run
+        for (int i = 0; i < scores.size(); i++){
+            if (score > scores.get(i)){
+                scores.add(i, score);
+                names.add(i, name);
+                return;
+            }
         }
-        
-        //determine the middle element
-        int middle = (left + right) / 2;
-        
-        //if the value in the middle is more than the player's score
-        if (scores.get(middle) > score){
-            //look to the right 
-            insertNamesAndScores(middle + 1, right);
-        }
-        //for all other cases:
-        else{
-            //look to the left 
-            insertNamesAndScores(left, middle - 1);
-        }
-        
+        //if score is the least out of all the scores in the ArrayList, add it on to the end
+        scores.add(score);
+        names.add(name);
     }
     //write the player's new score & name into the data file
     public void writeNameAndScore(){
@@ -1227,7 +1182,7 @@ public class LevelMap extends javax.swing.JFrame {
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 40));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("PacMan");
+        setTitle("Pacman");
         setBackground(new java.awt.Color(0, 0, 0));
         setSize(new java.awt.Dimension(500, 420));
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1548,7 +1503,7 @@ public class LevelMap extends javax.swing.JFrame {
 
         Wall1.setBackground(new java.awt.Color(0, 0, 0));
         Wall1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));
-        Wall1.setPreferredSize(new java.awt.Dimension(40, 20));
+        Wall1.setPreferredSize(new java.awt.Dimension(20, 20));
 
         javax.swing.GroupLayout Wall1Layout = new javax.swing.GroupLayout(Wall1);
         Wall1.setLayout(Wall1Layout);
@@ -1564,7 +1519,6 @@ public class LevelMap extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 2;
         getContentPane().add(Wall1, gridBagConstraints);
 
         Wall2.setBackground(new java.awt.Color(0, 0, 0));
@@ -1632,7 +1586,7 @@ public class LevelMap extends javax.swing.JFrame {
 
         Wall5.setBackground(new java.awt.Color(0, 0, 0));
         Wall5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));
-        Wall5.setPreferredSize(new java.awt.Dimension(60, 20));
+        Wall5.setPreferredSize(new java.awt.Dimension(40, 20));
 
         javax.swing.GroupLayout Wall5Layout = new javax.swing.GroupLayout(Wall5);
         Wall5.setLayout(Wall5Layout);
@@ -1648,7 +1602,7 @@ public class LevelMap extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         getContentPane().add(Wall5, gridBagConstraints);
 
         Wall6.setBackground(new java.awt.Color(0, 0, 0));
@@ -1695,7 +1649,7 @@ public class LevelMap extends javax.swing.JFrame {
 
         Wall8.setBackground(new java.awt.Color(0, 0, 0));
         Wall8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));
-        Wall8.setPreferredSize(new java.awt.Dimension(40, 20));
+        Wall8.setPreferredSize(new java.awt.Dimension(20, 20));
 
         javax.swing.GroupLayout Wall8Layout = new javax.swing.GroupLayout(Wall8);
         Wall8.setLayout(Wall8Layout);
@@ -1711,7 +1665,6 @@ public class LevelMap extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 2;
         getContentPane().add(Wall8, gridBagConstraints);
 
         Wall9.setBackground(new java.awt.Color(0, 0, 0));
@@ -1758,7 +1711,7 @@ public class LevelMap extends javax.swing.JFrame {
 
         Wall11.setBackground(new java.awt.Color(0, 0, 0));
         Wall11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));
-        Wall11.setPreferredSize(new java.awt.Dimension(60, 20));
+        Wall11.setPreferredSize(new java.awt.Dimension(40, 20));
 
         javax.swing.GroupLayout Wall11Layout = new javax.swing.GroupLayout(Wall11);
         Wall11.setLayout(Wall11Layout);
@@ -1774,7 +1727,7 @@ public class LevelMap extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 16;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         getContentPane().add(Wall11, gridBagConstraints);
 
         Wall12.setBackground(new java.awt.Color(0, 0, 0));
@@ -1863,7 +1816,7 @@ public class LevelMap extends javax.swing.JFrame {
 
         Wall16.setBackground(new java.awt.Color(0, 0, 0));
         Wall16.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));
-        Wall16.setPreferredSize(new java.awt.Dimension(80, 20));
+        Wall16.setPreferredSize(new java.awt.Dimension(60, 20));
 
         javax.swing.GroupLayout Wall16Layout = new javax.swing.GroupLayout(Wall16);
         Wall16.setLayout(Wall16Layout);
@@ -1877,9 +1830,9 @@ public class LevelMap extends javax.swing.JFrame {
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 3;
         getContentPane().add(Wall16, gridBagConstraints);
 
         Wall17.setBackground(new java.awt.Color(0, 0, 0));
@@ -1905,7 +1858,7 @@ public class LevelMap extends javax.swing.JFrame {
 
         Wall18.setBackground(new java.awt.Color(0, 0, 0));
         Wall18.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));
-        Wall18.setPreferredSize(new java.awt.Dimension(180, 20));
+        Wall18.setPreferredSize(new java.awt.Dimension(140, 20));
 
         javax.swing.GroupLayout Wall18Layout = new javax.swing.GroupLayout(Wall18);
         Wall18.setLayout(Wall18Layout);
@@ -1919,9 +1872,9 @@ public class LevelMap extends javax.swing.JFrame {
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridwidth = 7;
         getContentPane().add(Wall18, gridBagConstraints);
 
         Wall19.setBackground(new java.awt.Color(0, 0, 0));
@@ -1989,7 +1942,7 @@ public class LevelMap extends javax.swing.JFrame {
 
         Wall22.setBackground(new java.awt.Color(0, 0, 0));
         Wall22.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));
-        Wall22.setPreferredSize(new java.awt.Dimension(80, 20));
+        Wall22.setPreferredSize(new java.awt.Dimension(60, 20));
 
         javax.swing.GroupLayout Wall22Layout = new javax.swing.GroupLayout(Wall22);
         Wall22.setLayout(Wall22Layout);
@@ -2005,7 +1958,7 @@ public class LevelMap extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 13;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 3;
         getContentPane().add(Wall22, gridBagConstraints);
 
         Wall23.setBackground(new java.awt.Color(0, 0, 0));
@@ -2094,7 +2047,7 @@ public class LevelMap extends javax.swing.JFrame {
 
         Wall27.setBackground(new java.awt.Color(0, 0, 0));
         Wall27.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));
-        Wall27.setPreferredSize(new java.awt.Dimension(60, 20));
+        Wall27.setPreferredSize(new java.awt.Dimension(40, 20));
 
         javax.swing.GroupLayout Wall27Layout = new javax.swing.GroupLayout(Wall27);
         Wall27.setLayout(Wall27Layout);
@@ -2108,9 +2061,9 @@ public class LevelMap extends javax.swing.JFrame {
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 21;
+        gridBagConstraints.gridx = 22;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         getContentPane().add(Wall27, gridBagConstraints);
 
         Wall28.setBackground(new java.awt.Color(0, 0, 0));
@@ -2136,7 +2089,7 @@ public class LevelMap extends javax.swing.JFrame {
 
         Wall29.setBackground(new java.awt.Color(0, 0, 0));
         Wall29.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));
-        Wall29.setPreferredSize(new java.awt.Dimension(40, 20));
+        Wall29.setPreferredSize(new java.awt.Dimension(20, 20));
 
         javax.swing.GroupLayout Wall29Layout = new javax.swing.GroupLayout(Wall29);
         Wall29.setLayout(Wall29Layout);
@@ -2150,9 +2103,8 @@ public class LevelMap extends javax.swing.JFrame {
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 21;
+        gridBagConstraints.gridx = 22;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 2;
         getContentPane().add(Wall29, gridBagConstraints);
 
         Wall30.setBackground(new java.awt.Color(0, 0, 0));
@@ -2219,7 +2171,7 @@ public class LevelMap extends javax.swing.JFrame {
 
         Wall33.setBackground(new java.awt.Color(0, 0, 0));
         Wall33.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));
-        Wall33.setPreferredSize(new java.awt.Dimension(40, 20));
+        Wall33.setPreferredSize(new java.awt.Dimension(20, 20));
 
         javax.swing.GroupLayout Wall33Layout = new javax.swing.GroupLayout(Wall33);
         Wall33.setLayout(Wall33Layout);
@@ -2233,9 +2185,8 @@ public class LevelMap extends javax.swing.JFrame {
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 21;
+        gridBagConstraints.gridx = 22;
         gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 2;
         getContentPane().add(Wall33, gridBagConstraints);
 
         Wall34.setBackground(new java.awt.Color(0, 0, 0));
@@ -2261,7 +2212,7 @@ public class LevelMap extends javax.swing.JFrame {
 
         Wall35.setBackground(new java.awt.Color(0, 0, 0));
         Wall35.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));
-        Wall35.setPreferredSize(new java.awt.Dimension(60, 20));
+        Wall35.setPreferredSize(new java.awt.Dimension(40, 20));
 
         javax.swing.GroupLayout Wall35Layout = new javax.swing.GroupLayout(Wall35);
         Wall35.setLayout(Wall35Layout);
@@ -2275,9 +2226,9 @@ public class LevelMap extends javax.swing.JFrame {
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 21;
+        gridBagConstraints.gridx = 22;
         gridBagConstraints.gridy = 16;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         getContentPane().add(Wall35, gridBagConstraints);
 
         Wall36.setBackground(new java.awt.Color(0, 0, 0));

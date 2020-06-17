@@ -1,5 +1,4 @@
 /*
-Eshika Dey
 YellowDot Class
  */
 package deypacman;

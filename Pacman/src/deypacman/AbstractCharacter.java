@@ -1,5 +1,4 @@
 /*
-Eshika Dey
 Super class of all characters (subclasses: PacMan Class & Ghost Class)
  */
 package deypacman;

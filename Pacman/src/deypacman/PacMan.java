@@ -1,5 +1,4 @@
 /*
-Eshika Dey
 PacMan Class, superclass: AbstractCharacter
  */
 package deypacman;

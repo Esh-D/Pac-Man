@@ -5,11 +5,8 @@ import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import java.io.InputStream;
 
 /*
- * Prathiba Dhanesh
- * June 14th 2020
  * This is a class to handle the sound effects/music that will be played throughout
  * the game.
  */

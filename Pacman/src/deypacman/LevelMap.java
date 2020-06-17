@@ -1,5 +1,4 @@
 /*
-Eshika Dey
 LevelMap Frame (where the gameplay occurs)
 */
 
@@ -12,14 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.net.URI;
-import java.io.InputStream;
 
 public class LevelMap extends javax.swing.JFrame {
     End endMenu;

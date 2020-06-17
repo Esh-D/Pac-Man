@@ -1,14 +1,11 @@
 package deypacman;
 
 /*
- * Prathiba Dhanesh
- * June 14th 2020
  * Ghost Class
  */
 
 import java.awt.Rectangle;
 import java.net.URL;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 

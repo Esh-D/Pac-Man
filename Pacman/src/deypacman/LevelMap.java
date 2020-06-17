@@ -841,9 +841,6 @@ public class LevelMap extends javax.swing.JFrame {
 
         jPanel466 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        GlitchCover = new javax.swing.JPanel();
-        PacMan = new javax.swing.JPanel();
-        PacManPic = new javax.swing.JLabel();
         GlitchCover6 = new javax.swing.JPanel();
         GlitchCover5 = new javax.swing.JPanel();
         GlitchCover4 = new javax.swing.JPanel();
@@ -862,6 +859,9 @@ public class LevelMap extends javax.swing.JFrame {
         GhostPic5 = new javax.swing.JLabel();
         Ghost6 = new javax.swing.JPanel();
         GhostPic6 = new javax.swing.JLabel();
+        GlitchCover = new javax.swing.JPanel();
+        PacMan = new javax.swing.JPanel();
+        PacManPic = new javax.swing.JLabel();
         Wall1 = new javax.swing.JPanel();
         Wall2 = new javax.swing.JPanel();
         Wall3 = new javax.swing.JPanel();
@@ -1192,51 +1192,6 @@ public class LevelMap extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        GlitchCover.setBackground(new Color(0,0,0,0));
-        GlitchCover.setPreferredSize(new java.awt.Dimension(20, 20));
-
-        javax.swing.GroupLayout GlitchCoverLayout = new javax.swing.GroupLayout(GlitchCover);
-        GlitchCover.setLayout(GlitchCoverLayout);
-        GlitchCoverLayout.setHorizontalGroup(
-            GlitchCoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        GlitchCoverLayout.setVerticalGroup(
-            GlitchCoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 12;
-        gridBagConstraints.gridy = 10;
-        getContentPane().add(GlitchCover, gridBagConstraints);
-
-        PacMan.setBackground(new Color(0,0,0,0));
-        PacMan.setPreferredSize(new java.awt.Dimension(20, 20));
-
-        PacManPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deypacman/pacmanRight.png"))); // NOI18N
-        PacManPic.setText("jLabel1");
-
-        javax.swing.GroupLayout PacManLayout = new javax.swing.GroupLayout(PacMan);
-        PacMan.setLayout(PacManLayout);
-        PacManLayout.setHorizontalGroup(
-            PacManLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PacManLayout.createSequentialGroup()
-                .addComponent(PacManPic, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        PacManLayout.setVerticalGroup(
-            PacManLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PacManLayout.createSequentialGroup()
-                .addComponent(PacManPic, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 12;
-        gridBagConstraints.gridy = 10;
-        getContentPane().add(PacMan, gridBagConstraints);
-
         GlitchCover6.setBackground(new Color(0,0,0,0));
         GlitchCover6.setPreferredSize(new java.awt.Dimension(20, 20));
 
@@ -1500,6 +1455,51 @@ public class LevelMap extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 19;
         getContentPane().add(Ghost6, gridBagConstraints);
+
+        GlitchCover.setBackground(new Color(0,0,0,0));
+        GlitchCover.setPreferredSize(new java.awt.Dimension(20, 20));
+
+        javax.swing.GroupLayout GlitchCoverLayout = new javax.swing.GroupLayout(GlitchCover);
+        GlitchCover.setLayout(GlitchCoverLayout);
+        GlitchCoverLayout.setHorizontalGroup(
+            GlitchCoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        GlitchCoverLayout.setVerticalGroup(
+            GlitchCoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 10;
+        getContentPane().add(GlitchCover, gridBagConstraints);
+
+        PacMan.setBackground(new Color(0,0,0,0));
+        PacMan.setPreferredSize(new java.awt.Dimension(20, 20));
+
+        PacManPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deypacman/pacmanRight.png"))); // NOI18N
+        PacManPic.setText("jLabel1");
+
+        javax.swing.GroupLayout PacManLayout = new javax.swing.GroupLayout(PacMan);
+        PacMan.setLayout(PacManLayout);
+        PacManLayout.setHorizontalGroup(
+            PacManLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PacManLayout.createSequentialGroup()
+                .addComponent(PacManPic, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        PacManLayout.setVerticalGroup(
+            PacManLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PacManLayout.createSequentialGroup()
+                .addComponent(PacManPic, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 10;
+        getContentPane().add(PacMan, gridBagConstraints);
 
         Wall1.setBackground(new java.awt.Color(0, 0, 0));
         Wall1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 255, 51), 2, true));

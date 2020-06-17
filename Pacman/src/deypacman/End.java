@@ -132,6 +132,7 @@ public class End extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void btnQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitActionPerformed
+        //gameplay.character.interrupt();
         System.exit(0);
     }//GEN-LAST:event_btnQuitActionPerformed
 

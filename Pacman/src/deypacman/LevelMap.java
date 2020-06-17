@@ -92,7 +92,8 @@ public class LevelMap extends javax.swing.JFrame {
     public void gameReset(){
         //reseting the score to 0
         score = 0;
-        lblScore.setText("Score: " + score);
+        //displaying score feature was removed because it was causing a glitch in the pacman and ghost movement
+        //lblScore.setText("Score: " + score);
         
         //reseting pacMan's position, direction, and icon
         pacMan.setXPos(240);
@@ -104,10 +105,7 @@ public class LevelMap extends javax.swing.JFrame {
         for (int i = 0; i < dots.length; i++){
             dots[i].setEaten(false);
         }
-        
-        //set the glitch cover to transparent 
-        GlitchCover.setBackground(new Color(0,0,0,0));
-        
+
         ghost1.setIsFull(false);
         ghost2.setIsFull(false);
         ghost3.setIsFull(false);
@@ -126,6 +124,7 @@ public class LevelMap extends javax.swing.JFrame {
         
     }
     
+    @SuppressWarnings("unchecked")
     //"character" Thread starts running here (character refers to pacman and the ghosts)
     public void characterThread(){
         
@@ -138,8 +137,6 @@ public class LevelMap extends javax.swing.JFrame {
                     while(true){
                         //pacMan's constant moving feature
                         pacMotion();
-                        //method covers up a glitch that occurs 
-                        glitchCover();
                         //checking if pac man has eaten any dots / eaten all the dots
                         //alters the game accordingly
                         pacEating();
@@ -189,91 +186,6 @@ public class LevelMap extends javax.swing.JFrame {
         }
     }
     //covers up a glitch that occurs in pacMan's movement
-    public void glitchCover(){
-        //the next few lines of code cover up a glitch
-        //visually, whenever pacMan eats a yellow dot it teleports to its starting point and then back to where it was before
-        //this is caused by updating the score label
-        //the solution below prevents the user from seeing it
-        
-        //get the bounds of both the character's panel & the cover's panel
-        Rectangle characterBounds = (pacMan.getCharacter()).getBounds();
-        Rectangle coverBounds = GlitchCover.getBounds();
-        
-        //this case is true at the beinning of the game when the user needs to see pacMan in that location
-        //also whenever pacMan travels through that location
-        if (characterBounds.intersects(coverBounds)){
-            //set cover to transparent (so pacMan can be seen by player)
-            GlitchCover.setBackground(new Color(0,0,0,0));
-        }
-        //for every other case, pacMan should not be seen in that location
-        else{
-            //set cover to black (so pacMan's glitch can't be seen by player)
-            GlitchCover.setBackground(new Color(0));
-        }
-        //---------------------Glitch covers for the ghosts--------------------
-        characterBounds = (ghost1.getCharacter()).getBounds();
-        coverBounds = GlitchCover1.getBounds();
-        
-        if (characterBounds.intersects(coverBounds)){
-            GlitchCover1.setBackground(new Color(0,0,0,0));
-        }
-        else{
-            GlitchCover1.setBackground(new Color(0));
-        }
-        
-        characterBounds = (ghost2.getCharacter()).getBounds();
-        coverBounds = GlitchCover2.getBounds();
-        
-        if (characterBounds.intersects(coverBounds)){
-            GlitchCover2.setBackground(new Color(0,0,0,0));
-        }
-        else{
-            GlitchCover2.setBackground(new Color(0));
-        }
-        
-        characterBounds = (ghost3.getCharacter()).getBounds();
-        coverBounds = GlitchCover3.getBounds();
-        
-        if (characterBounds.intersects(coverBounds)){
-            GlitchCover3.setBackground(new Color(0,0,0,0));
-        }
-        else{
-            GlitchCover3.setBackground(new Color(0));
-        }
-        
-        characterBounds = (ghost4.getCharacter()).getBounds();
-        coverBounds = GlitchCover4.getBounds();
-        
-        if (characterBounds.intersects(coverBounds)){
-            GlitchCover4.setBackground(new Color(0,0,0,0));
-        }
-        else{
-            GlitchCover4.setBackground(new Color(0));
-        }
-        
-        characterBounds = (ghost5.getCharacter()).getBounds();
-        coverBounds = GlitchCover5.getBounds();
-        
-        if (characterBounds.intersects(coverBounds)){
-            GlitchCover5.setBackground(new Color(0,0,0,0));
-        }
-        else{
-            GlitchCover5.setBackground(new Color(0));
-        }
-        
-        characterBounds = (ghost6.getCharacter()).getBounds();
-        coverBounds = GlitchCover6.getBounds();
-        
-        if (characterBounds.intersects(coverBounds)){
-            GlitchCover6.setBackground(new Color(0,0,0,0));
-        }
-        else{
-            GlitchCover6.setBackground(new Color(0));
-        }
-        
-        
-    }
-    //feature that allows pacMan to eat the yellow dots 
     public void pacEating(){
         //dot eating feature:
         //check if pacMan has run into any of the remaining dots, if so, pacMan ate the dot
@@ -285,8 +197,8 @@ public class LevelMap extends javax.swing.JFrame {
                 dots[i].setEaten(true);
                 //add to score
                 score += 100;
-                //the below line of code causes the glitch described in the glitchCover() method
-                lblScore.setText("Score: " + score);
+                //the below line of code causes a glitch, so it was taken out (commented out)
+                //lblScore.setText("Score: " + score);
                 
                 //if all the yellow dots are eaten, player wins and game ends
                 if (score == 12300){
@@ -841,12 +753,6 @@ public class LevelMap extends javax.swing.JFrame {
 
         jPanel466 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        GlitchCover6 = new javax.swing.JPanel();
-        GlitchCover5 = new javax.swing.JPanel();
-        GlitchCover4 = new javax.swing.JPanel();
-        GlitchCover3 = new javax.swing.JPanel();
-        GlitchCover2 = new javax.swing.JPanel();
-        GlitchCover1 = new javax.swing.JPanel();
         Ghost1 = new javax.swing.JPanel();
         GhostPic1 = new javax.swing.JLabel();
         Ghost2 = new javax.swing.JPanel();
@@ -859,7 +765,6 @@ public class LevelMap extends javax.swing.JFrame {
         GhostPic5 = new javax.swing.JLabel();
         Ghost6 = new javax.swing.JPanel();
         GhostPic6 = new javax.swing.JLabel();
-        GlitchCover = new javax.swing.JPanel();
         PacMan = new javax.swing.JPanel();
         PacManPic = new javax.swing.JLabel();
         Wall1 = new javax.swing.JPanel();
@@ -1155,7 +1060,6 @@ public class LevelMap extends javax.swing.JFrame {
         DotPic125 = new javax.swing.JLabel();
         Dot126 = new javax.swing.JPanel();
         DotPic126 = new javax.swing.JLabel();
-        lblScore = new javax.swing.JLabel();
 
         jPanel466.setBackground(new java.awt.Color(0, 0, 0));
         jPanel466.setPreferredSize(new java.awt.Dimension(20, 20));
@@ -1191,120 +1095,6 @@ public class LevelMap extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new java.awt.GridBagLayout());
-
-        GlitchCover6.setBackground(new Color(0,0,0,0));
-        GlitchCover6.setPreferredSize(new java.awt.Dimension(20, 20));
-
-        javax.swing.GroupLayout GlitchCover6Layout = new javax.swing.GroupLayout(GlitchCover6);
-        GlitchCover6.setLayout(GlitchCover6Layout);
-        GlitchCover6Layout.setHorizontalGroup(
-            GlitchCover6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        GlitchCover6Layout.setVerticalGroup(
-            GlitchCover6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 19;
-        getContentPane().add(GlitchCover6, gridBagConstraints);
-
-        GlitchCover5.setBackground(new Color(0,0,0,0));
-        GlitchCover5.setPreferredSize(new java.awt.Dimension(20, 20));
-
-        javax.swing.GroupLayout GlitchCover5Layout = new javax.swing.GroupLayout(GlitchCover5);
-        GlitchCover5.setLayout(GlitchCover5Layout);
-        GlitchCover5Layout.setHorizontalGroup(
-            GlitchCover5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        GlitchCover5Layout.setVerticalGroup(
-            GlitchCover5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 18;
-        gridBagConstraints.gridy = 13;
-        getContentPane().add(GlitchCover5, gridBagConstraints);
-
-        GlitchCover4.setBackground(new Color(0,0,0,0));
-        GlitchCover4.setPreferredSize(new java.awt.Dimension(20, 20));
-
-        javax.swing.GroupLayout GlitchCover4Layout = new javax.swing.GroupLayout(GlitchCover4);
-        GlitchCover4.setLayout(GlitchCover4Layout);
-        GlitchCover4Layout.setHorizontalGroup(
-            GlitchCover4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        GlitchCover4Layout.setVerticalGroup(
-            GlitchCover4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 23;
-        gridBagConstraints.gridy = 19;
-        getContentPane().add(GlitchCover4, gridBagConstraints);
-
-        GlitchCover3.setBackground(new Color(0,0,0,0));
-        GlitchCover3.setPreferredSize(new java.awt.Dimension(20, 20));
-
-        javax.swing.GroupLayout GlitchCover3Layout = new javax.swing.GroupLayout(GlitchCover3);
-        GlitchCover3.setLayout(GlitchCover3Layout);
-        GlitchCover3Layout.setHorizontalGroup(
-            GlitchCover3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        GlitchCover3Layout.setVerticalGroup(
-            GlitchCover3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        getContentPane().add(GlitchCover3, gridBagConstraints);
-
-        GlitchCover2.setBackground(new Color(0,0,0,0));
-        GlitchCover2.setPreferredSize(new java.awt.Dimension(20, 20));
-
-        javax.swing.GroupLayout GlitchCover2Layout = new javax.swing.GroupLayout(GlitchCover2);
-        GlitchCover2.setLayout(GlitchCover2Layout);
-        GlitchCover2Layout.setHorizontalGroup(
-            GlitchCover2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        GlitchCover2Layout.setVerticalGroup(
-            GlitchCover2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 7;
-        getContentPane().add(GlitchCover2, gridBagConstraints);
-
-        GlitchCover1.setBackground(new Color(0,0,0,0));
-        GlitchCover1.setPreferredSize(new java.awt.Dimension(20, 20));
-
-        javax.swing.GroupLayout GlitchCover1Layout = new javax.swing.GroupLayout(GlitchCover1);
-        GlitchCover1.setLayout(GlitchCover1Layout);
-        GlitchCover1Layout.setHorizontalGroup(
-            GlitchCover1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        GlitchCover1Layout.setVerticalGroup(
-            GlitchCover1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 22;
-        gridBagConstraints.gridy = 1;
-        getContentPane().add(GlitchCover1, gridBagConstraints);
 
         Ghost1.setBackground(new Color(0,0,0,0));
         Ghost1.setPreferredSize(new java.awt.Dimension(20, 20));
@@ -1455,25 +1245,6 @@ public class LevelMap extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 19;
         getContentPane().add(Ghost6, gridBagConstraints);
-
-        GlitchCover.setBackground(new Color(0,0,0,0));
-        GlitchCover.setPreferredSize(new java.awt.Dimension(20, 20));
-
-        javax.swing.GroupLayout GlitchCoverLayout = new javax.swing.GroupLayout(GlitchCover);
-        GlitchCover.setLayout(GlitchCoverLayout);
-        GlitchCoverLayout.setHorizontalGroup(
-            GlitchCoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        GlitchCoverLayout.setVerticalGroup(
-            GlitchCoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 12;
-        gridBagConstraints.gridy = 10;
-        getContentPane().add(GlitchCover, gridBagConstraints);
 
         PacMan.setBackground(new Color(0,0,0,0));
         PacMan.setPreferredSize(new java.awt.Dimension(20, 20));
@@ -5556,22 +5327,6 @@ public class LevelMap extends javax.swing.JFrame {
         gridBagConstraints.gridy = 17;
         getContentPane().add(Dot126, gridBagConstraints);
 
-        lblScore.setBackground(new java.awt.Color(0, 0, 0));
-        lblScore.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblScore.setForeground(new java.awt.Color(255, 255, 255));
-        lblScore.setText(" Score:  0");
-        lblScore.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
-        lblScore.setMaximumSize(new java.awt.Dimension(100, 40));
-        lblScore.setMinimumSize(new java.awt.Dimension(100, 40));
-        lblScore.setOpaque(true);
-        lblScore.setPreferredSize(new java.awt.Dimension(100, 40));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 21;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.gridheight = 2;
-        getContentPane().add(lblScore, gridBagConstraints);
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -5859,13 +5614,6 @@ public class LevelMap extends javax.swing.JFrame {
     private javax.swing.JLabel GhostPic4;
     private javax.swing.JLabel GhostPic5;
     private javax.swing.JLabel GhostPic6;
-    private javax.swing.JPanel GlitchCover;
-    private javax.swing.JPanel GlitchCover1;
-    private javax.swing.JPanel GlitchCover2;
-    private javax.swing.JPanel GlitchCover3;
-    private javax.swing.JPanel GlitchCover4;
-    private javax.swing.JPanel GlitchCover5;
-    private javax.swing.JPanel GlitchCover6;
     private javax.swing.JPanel PacMan;
     private javax.swing.JLabel PacManPic;
     private javax.swing.JPanel Wall1;
@@ -5917,6 +5665,5 @@ public class LevelMap extends javax.swing.JFrame {
     private javax.swing.JPanel Wall9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel466;
-    private javax.swing.JLabel lblScore;
     // End of variables declaration//GEN-END:variables
 }

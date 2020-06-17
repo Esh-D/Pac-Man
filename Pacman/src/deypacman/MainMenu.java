@@ -1,9 +1,7 @@
 package deypacman;
 
 /*
- * Prathiba Dhanesh
- * June 14th 2020
- * Main menu source code
+ * Main Menu Frame
  */
 
 import java.awt.Color;

@@ -33,16 +33,12 @@ public class LevelMap extends javax.swing.JFrame {
     int score = 0;
     
     Thread pac;
-    //this object is used in conjunction with "syncronized()" to implement the "pac" Thread thread & "Play Again" feature of the game
-    //The main purpose of the object & syncronized() is to avoid an exception that occurs when using ".wait()" and ".notify()" (illegalMonitorStateException)
     Object obj = new Object();
     
     //declaring PacMan Object
     PacMan pacMan;
     
     Thread ghost;
-    //this object is used in conjunction with "syncronized()" to implement the "ghostMoving" thread & "Play Again" feature of the game
-    //The main purpose of the object & syncronized() is to avoid an exception that occurs when using ".wait()" and ".notify()" (illegalMonitorStateException)
     Object obj1 = new Object();
     
     //declaring Ghost objects 

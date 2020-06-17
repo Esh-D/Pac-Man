@@ -1,5 +1,5 @@
 /*
-End Frame (where the user is brought to after the game is finished, displays high scores, and allows the user to either Play Again or Quit)
+End Frame (where the user is brought to after the game is finished, displays high scores, and allows the user to Quit)
  */
 package deypacman;
 

@@ -139,7 +139,7 @@ public class LevelMap extends javax.swing.JFrame {
                         pacMotion();
                         //checking if pac man has eaten any dots / eaten all the dots
                         //alters the game accordingly
-                        pacEating();
+                        eatDot();
                         
                         //ghosts' constant moving feature
                         ghostMotion();
@@ -186,7 +186,7 @@ public class LevelMap extends javax.swing.JFrame {
         }
     }
     //covers up a glitch that occurs in pacMan's movement
-    public void pacEating(){
+    public void eatDot(){
         //dot eating feature:
         //check if pacMan has run into any of the remaining dots, if so, pacMan ate the dot
         for (int i = 0; i < dots.length; i++){

@@ -1,5 +1,5 @@
 /*
-PacMan Class, superclass: AbstractCharacter
+PacMan Class, superclass: AbstractCharacter Class)
  */
 package deypacman;
 

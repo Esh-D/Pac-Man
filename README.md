@@ -2,6 +2,8 @@
 
 ## Description
 A reinvented Pac Man game created in Java using Swing and Netbeans IDE. 
+The game is a reinvented version of the classic arcade game Pac-Man. The user wins by eating all the yellow dots and they lose if one of the ghosts eats them. The game has a main menu, a level map where the user plays the game, and a game over / winning menu. It is equipped with sound effects and a high score feature that displays your top 5 highest scores each time you finish the game. 
+
 ### Includes:
 * saves all scores and shows the player the top 5 highscores at the end of each game
   * nickname and scores are stored in a data file

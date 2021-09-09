@@ -6,6 +6,19 @@ A reinvented Pac Man game created in Java using Swing and Netbeans IDE. The user
 ## Demo Video
 https://user-images.githubusercontent.com/42325719/132769237-5efe65ca-ec2a-44a3-b2e7-eea4cbe01997.mp4
 
+## Running the Game
+Create a folder (this will be refered to as the "main folder")
+Download the JAR file at Pacman/PacmanJAR1/Pacman.jar, into main folder.
+Create a folder named "sounds" within main folder.
+Download all 3 sound files at Pacman/PacmanJAR1/sounds, into the "sounds" folder you created in the previous step.
+Create a folder named "saves" within main folder. 
+Create and save a text file named "scores" into the "saves" folder you created in the previous step. 
+
+Your main folder should look like this:
+![ExecutableFolderExample1](https://user-images.githubusercontent.com/42325719/132773661-54779c29-6ce7-48ce-b52e-234c401a31a6.PNG)
+
+Finally, to run the game, double click the JAR file. 
+
 ## Screenshots
 ![mainMenu](https://user-images.githubusercontent.com/42325719/132763988-3e4e10ab-1409-4f69-9d97-c86b97998816.PNG)
 

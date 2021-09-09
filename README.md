@@ -1,7 +1,12 @@
 # Pac Man Game
 
 ## Description
-A reinvented Pac Man game created in Java using JFrame and Netbeans IDE. 
+A reinvented Pac Man game created in Java using Swing and Netbeans IDE. 
+### Includes:
+* saves all scores and shows the player the top 5 highscores at the end of each game
+  * nickname and scores are stored in a data file
+  * data is saved and able to be accessed even after player has exited and opened the game several times
+* theme music and sound effects
 
 ## Demo Video
 https://user-images.githubusercontent.com/42325719/132769237-5efe65ca-ec2a-44a3-b2e7-eea4cbe01997.mp4

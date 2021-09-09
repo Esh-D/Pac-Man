@@ -8,9 +8,9 @@ https://user-images.githubusercontent.com/42325719/132769237-5efe65ca-ec2a-44a3-
 
 ## Running the Game
 1. Create a folder on your computer (this will be refered to as the "main folder")
-2. Download the JAR file at Pacman/PacmanJAR1/Pacman.jar, into main folder.
+2. Download the JAR file at Pacman/PacmanJAR1/Pacman.jar into main folder.
 3. Create a folder named "sounds" within main folder.
-4. Download all 3 sound files at Pacman/PacmanJAR1/sounds, into the "sounds" folder you created in the previous step.
+4. Download all 3 sound files at Pacman/PacmanJAR1/sounds into the "sounds" folder you created in the previous step.
 5. Create a folder named "saves" within main folder.
 6. Create and save a text file named "scores" into the "saves" folder you created in the previous step.
 

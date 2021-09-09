@@ -1,4 +1,4 @@
-# Pac-Man
+# Pac Man Game
 
 # Description
 A reinvented Pac Man game created in Java using JFrame and Netbeans IDE. 

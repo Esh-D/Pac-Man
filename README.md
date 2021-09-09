@@ -24,6 +24,8 @@ Finally, to run the game, double click the JAR file.
 
 ![LevelMap](https://user-images.githubusercontent.com/42325719/132764005-bfbc4b9a-f613-4100-a0af-6fce457ded97.PNG)
 
+![InputNickname](https://user-images.githubusercontent.com/42325719/132774592-10c3ca43-04de-4cef-87d8-2b9bce04ea50.PNG)
+
 ![EndingWin](https://user-images.githubusercontent.com/42325719/132770043-19c35736-5f00-4eb2-9f05-dc1d01d6958e.PNG)
 
 ![EndingGameOver](https://user-images.githubusercontent.com/42325719/132770033-c38ab95e-632d-4dd3-8bd3-bd4bfbcdbb46.PNG)

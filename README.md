@@ -3,6 +3,9 @@
 # Demo Video
 https://user-images.githubusercontent.com/42325719/132769237-5efe65ca-ec2a-44a3-b2e7-eea4cbe01997.mp4
 
+# Description
+A reinvented Pac Man game created in Java using JFrame and Netbeans IDE. 
+
 # Screenshots
 ![mainMenu](https://user-images.githubusercontent.com/42325719/132763988-3e4e10ab-1409-4f69-9d97-c86b97998816.PNG)
 

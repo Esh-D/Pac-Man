@@ -20,9 +20,9 @@ Your main folder should look like this:
 Finally, to run the game, double click the JAR file. 
 
 ## Screenshots
-![mainMenu](https://user-images.githubusercontent.com/42325719/132763988-3e4e10ab-1409-4f69-9d97-c86b97998816.PNG)
+![mainMenu](https://user-images.githubusercontent.com/42325719/132793161-74129f1a-8857-4251-8d6e-7ccf3f0c11e9.PNG)
 
-![LevelMap](https://user-images.githubusercontent.com/42325719/132764005-bfbc4b9a-f613-4100-a0af-6fce457ded97.PNG)
+![LevelMap](https://user-images.githubusercontent.com/42325719/132793117-9124a975-39b3-4300-a157-ba7b23e9e56f.PNG)
 
 ![InputNickname](https://user-images.githubusercontent.com/42325719/132774592-10c3ca43-04de-4cef-87d8-2b9bce04ea50.PNG)
 
